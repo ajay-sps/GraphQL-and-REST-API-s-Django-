@@ -23,6 +23,7 @@ class Mutation(graphene.ObjectType):
     # THis name is very importanta and if you add underscoe in the name, in client side mutation query needs to remove underscore and add camer Casing there
     # eg - "api_create_User"  will be used as "apiCreateUser"
     apiCreateUser = UserSignup.Field()
+    apiSignIn = UserSignIn.Field()
 
 
 schema = graphene.Schema(query=Query,mutation=Mutation)

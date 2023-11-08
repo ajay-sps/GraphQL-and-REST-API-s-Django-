@@ -2,11 +2,13 @@ import graphene
 from graphene import  Mutation
 from graphene import String, Int, Boolean
 
-from social_media.types import UserInputType, UserType
+from social_media.types import *
 
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from social_media.models import UserProfile
+
+from django.contrib.auth import authenticate
 
 
 
@@ -24,8 +26,30 @@ class UserSignup(Mutation):
     def mutate(root, info, input):
         print(input,"------------")
         profile_data = input.pop('userProfile')
+        password = input.pop('password')
         user = User(**input,is_active=1)
+        user.set_password(password)
         user.save()
         UserProfile.objects.create(**profile_data,user=user)
         Token.objects.get_or_create(user=user)
         return UserSignup(status=201, user=user)
+
+
+class UserSignIn(Mutation):
+    class Arguments:
+        req_data = SignInInputType()
+
+    status = Int()
+    user = graphene.Field(UserType)
+    message = String()
+
+    @staticmethod
+    def mutate(root,info,req_data):
+        print(req_data,"-----------------------")
+        user = authenticate(**req_data)
+        if user is not None:
+            Token.objects.get_or_create(user=user)
+            return UserSignIn(status=200,user=user,message="success")
+        else:
+            return UserSignIn(status=400,user = None,message="User not found")
+        

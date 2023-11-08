@@ -36,8 +36,14 @@ class UserProfileInputType(InputObjectType):
 
 class UserInputType(InputObjectType):
     # These naming are important as if it contains unserscore here, in query we have to remove it and add camlecasing
-    first_name = String()     
-    username =   String()    
+    first_name = String(required=True)   
+    username =   String(required=True)   
+    password = String(required=True)
     userProfile = UserProfileInputType()
 
+
+class SignInInputType(InputObjectType):
+
+    username = String(required=True)
+    password = String(required=True)
 
