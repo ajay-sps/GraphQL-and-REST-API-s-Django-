@@ -8,7 +8,7 @@ from social_media.models import UserProfile
 class TokenType(DjangoObjectType):
     class Meta:
         model = Token
-        ields =('id', 'key', 'user',)
+        ields =('id', 'key', 'user')
 
 
 class UserType(DjangoObjectType):
@@ -31,7 +31,7 @@ class UserProfileType(DjangoObjectType):
 
 class UserProfileInputType(InputObjectType):
     bio = String()    
-    pincode = Int ()
+    pincode = Int(required=True)
 
 
 class UserInputType(InputObjectType):
