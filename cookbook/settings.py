@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ingredients',
     "graphene_django",
+    'employee',
 ]
 
 MIDDLEWARE = [

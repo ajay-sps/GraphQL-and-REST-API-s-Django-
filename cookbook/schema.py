@@ -2,6 +2,7 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphene import InputObjectType, Mutation
 from graphene import String, Int, Boolean
+from ingredients.serializer import CategorySerializer
 
 from ingredients.models import Category, Ingredient
 
@@ -35,9 +36,16 @@ class CreateCategory(Mutation):
 
     @staticmethod
     def mutate(root, info, input):
+        print(input)
+        serializer = CategorySerializer(data=input)
+        # if serializer.is_valid():
+        #     return True
         category = Category(name=input.name)
         category.save()
         return CreateCategory(ok=True, category=category)
+        # else:
+        #     print(serializer.errors())
+        #     return "hello"
     
 
 class UpdateCategory(Mutation):
