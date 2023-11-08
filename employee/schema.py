@@ -30,6 +30,8 @@ class CreateDepartment(Mutation):
         department.save()
         return CreateDepartment(status=201, department=department)
 
+
+
 class Query(graphene.ObjectType):
     # Define your query fields here
     all_departments = graphene.List(DepartmentType)

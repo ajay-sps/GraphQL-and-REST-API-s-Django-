@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'ingredients',
     "graphene_django",
     'employee',
+    'social_media',
 ]
 
 MIDDLEWARE = [
