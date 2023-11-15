@@ -8,6 +8,9 @@ class UserProfile(models.Model):
     bio = models.TextField(blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
 
+    def __str__(self) -> str:
+        return self.user.username
+
 
 class Post(models.Model):
 
@@ -30,3 +33,15 @@ class PostComments(models.Model):
     comment = models.CharField(max_length=200)
 
 
+#test model to check use of serializer in graphql
+
+class Employee(models.Model):
+
+    name = models.CharField(max_length=40)
+    salary = models.IntegerField()
+
+    def __repr__(self) -> str:
+        return self.name
+    
+    def __str__(self) -> str:
+        return self.name

@@ -1,20 +1,49 @@
 from graphene import InputObjectType, String, Int, Boolean
 from graphene_django import DjangoObjectType
+import graphene
 
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from social_media.models import UserProfile
 
+from social_media.models import Employee
+
+
+class EmployeeType(DjangoObjectType):
+    class Meta:
+        model = Employee
+        fields = ('id', 'name', 'salary')
+
+    above_50000 = graphene.Boolean()
+
+    def resolve_above_50000(self, info):
+        salary = self.salary
+        return salary > 50000
+    
+
+
 class TokenType(DjangoObjectType):
     class Meta:
         model = Token
-        ields =('id', 'key', 'user')
+        fields =( 'key', 'user')
 
 
 class UserType(DjangoObjectType):
     class Meta:
         model = User
         fields =('id', 'first_name', 'last_name', 'username', 'password', 'email','auth_token', 'user_profile')
+
+    # here i have defined a new field
+
+    new_field = graphene.String()
+
+    def resolve_new_field(self,info):
+        #here i am checking if id is even i return Even else Odd
+        id = self.id
+        if id%2 == 1:
+            return "Odd"
+        else:
+            return "Even"
 
 
 

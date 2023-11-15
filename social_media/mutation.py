@@ -9,8 +9,8 @@ from rest_framework.authtoken.models import Token
 from social_media.models import UserProfile
 
 from django.contrib.auth import authenticate
-
-
+from graphene_django.rest_framework.mutation import SerializerMutation
+from social_media.serializer import EmployeeSerializer
 
 
 
@@ -52,4 +52,19 @@ class UserSignIn(Mutation):
             return UserSignIn(status=200,user=user,message="success")
         else:
             return UserSignIn(status=400,user = None,message="User not found")
+        
+
+class CreateOrUpdateEmployeeMutation(SerializerMutation):
+    employee = graphene.Field(EmployeeType)
+
+    class Meta:
+        serializer_class = EmployeeSerializer
+        model_operations = ['create', 'update']
+
+    # @classmethod
+    # def perform_mutate(cls, serializer, info):
+    #     print("Performing mutate...")
+    #     instance = super().perform_mutate(serializer, info)
+    #     print("Instance:", instance)
+    #     return cls(employee=instance)
         
