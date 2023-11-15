@@ -11,23 +11,25 @@ from social_media.filter import *
 
 class Query(graphene.ObjectType):
     # Define your query fields here
-    users = graphene.List(UserType,filter = UserFilter())
-    users_profile = graphene.List(UserProfileInputType,filter = UserProfileFilter())
+    # users = graphene.List(UserType, filters=graphene.Argument(UserFilter))
+    # user_profiles = graphene.List(UserProfileType, filters=graphene.Argument(UserProfileFilter))
+    users = graphene.List(UserType)
 
-    # here is a field to fetch user by ID
-    user_by_id = graphene.Field(UserType,id=graphene.Int(required=True))
+    # Field to fetch user by ID
+    user_by_id = graphene.Field(UserType, id=graphene.Int(required=True))
 
-    def resolve_users(self, info, **kwargs):
-        filters = kwargs.get('filters', {})
-        return User.objects.filter(**filters)
-    
-    def resolve_user_profiles(self, info, **kwargs):
-        filters = kwargs.get('filters', {})
+    # def resolve_users(self, info, filters=None, **kwargs):
+    #     print(111)
+    #     return User.objects.filter(**filters)
+
+    def resolve_users(self,info):
+        return User.objects.all()
+
+    def resolve_user_profiles(self, info, filters=None, **kwargs):
         return UserProfile.objects.filter(**filters)
-    
-    # resolver function to fetch user with ID
 
-    def resolve_user_by_id(self,info,id):
+    # Resolver function to fetch user with ID
+    def resolve_user_by_id(self, info, id):
         return User.objects.get(id=id)
     
 
