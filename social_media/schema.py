@@ -1,6 +1,6 @@
 import graphene
 
-from django.contrib.auth.models import User
+from user_auth.models import User
 
 from social_media.mutation import *
 from social_media.types import *

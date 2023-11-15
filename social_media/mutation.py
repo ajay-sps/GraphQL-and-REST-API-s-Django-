@@ -4,7 +4,7 @@ from graphene import String, Int, Boolean
 
 from social_media.types import *
 
-from django.contrib.auth.models import User
+from user_auth.models import User
 from rest_framework.authtoken.models import Token
 from social_media.models import UserProfile
 
@@ -37,6 +37,7 @@ class UserSignup(Mutation):
 
 class UserSignIn(Mutation):
     class Arguments:
+        # Inputs and can also add manually here without a Input type
         req_data = SignInInputType()
 
     status = Int()

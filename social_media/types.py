@@ -2,7 +2,7 @@ from graphene import InputObjectType, String, Int, Boolean
 from graphene_django import DjangoObjectType
 import graphene
 
-from django.contrib.auth.models import User
+from user_auth.models import User
 from rest_framework.authtoken.models import Token
 from social_media.models import UserProfile
 
