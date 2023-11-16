@@ -5,11 +5,11 @@ from user_auth.models import User
 from social_media.mutation import *
 from social_media.types import *
 from social_media.filter import *
+from graphql_auth.schema import MeQuery, UserQuery
 
 
 
-
-class Query(graphene.ObjectType):
+class Query(UserQuery,MeQuery,graphene.ObjectType):
     # Define your query fields here
     # users = graphene.List(UserType, filters=graphene.Argument(UserFilter))
     # user_profiles = graphene.List(UserProfileType, filters=graphene.Argument(UserProfileFilter))
