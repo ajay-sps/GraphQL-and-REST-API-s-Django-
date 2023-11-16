@@ -1,9 +1,6 @@
 import graphene
-from graphene import relay, ObjectType
+from graphene import relay
 from graphene_django import DjangoObjectType
-from graphene import InputObjectType, Mutation
-from graphene import String, Int, Boolean
-from ingredients.serializer import CategorySerializer
 
 from ingredients.models import Category, Ingredient
 from graphene_django.filter import DjangoFilterConnectionField

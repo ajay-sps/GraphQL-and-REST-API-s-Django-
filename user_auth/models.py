@@ -11,3 +11,5 @@ class User(AbstractUser):
 
     USERNAME_FIELD = "username"
     EMAIL_FIELD = "email"
+
+

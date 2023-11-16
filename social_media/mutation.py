@@ -37,7 +37,6 @@ class UserSignup(Mutation):
 
 class UserSignIn(Mutation):
     class Arguments:
-        # Inputs and can also add manually here without a Input type
         req_data = SignInInputType()
 
     status = Int()
@@ -61,11 +60,4 @@ class CreateOrUpdateEmployeeMutation(SerializerMutation):
     class Meta:                           
         serializer_class = EmployeeSerializer
         model_operations = ['create', 'update']
-
-    # @classmethod
-    # def perform_mutate(cls, serializer, info):
-    #     print("Performing mutate...")
-    #     instance = super().perform_mutate(serializer, info)
-    #     print("Instance:", instance)
-    #     return cls(employee=instance)
         

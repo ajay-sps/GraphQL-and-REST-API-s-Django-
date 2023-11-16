@@ -2,6 +2,7 @@ from graphql_auth.schema import MeQuery, UserQuery
 import graphene
 from graphql_auth import mutations
 from social_media.types import *
+from graphql_jwt.decorators import login_required
 
 
 class AuthMutation(graphene.ObjectType):
@@ -15,8 +16,9 @@ class AuthMutation(graphene.ObjectType):
 
 
 class Query(graphene.ObjectType):
-    usersListAuth = graphene.List(UserType)
+    users = graphene.List(UserType)
 
+    @login_required
     def resolve_users(self,info):
         print("=-=-auth-==-=-=")
         return User.objects.all()
@@ -24,4 +26,3 @@ class Query(graphene.ObjectType):
 class Mutation(AuthMutation, graphene.ObjectType):
     pass
 
-schema = graphene.Schema(query=Query,mutation=Mutation)

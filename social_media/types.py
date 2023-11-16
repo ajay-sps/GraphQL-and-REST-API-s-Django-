@@ -19,9 +19,7 @@ class EmployeeType(DjangoObjectType):
     def resolve_above_50000(self, info):
         salary = self.salary
         return salary > 50000
-    
-                                                                                                       
-
+                                                                                                    
 
 class TokenType(DjangoObjectType):                    
     class Meta:
@@ -34,12 +32,10 @@ class UserType(DjangoObjectType):
         model = User
         fields =('id', 'first_name', 'last_name', 'username', 'password', 'email','auth_token', 'user_profile')
 
-    # here i have defined a new field
 
     new_field = graphene.String()
 
     def resolve_new_field(self,info):
-        #here i am checking if id is even i return Even else Odd
         id = self.id
         if id%2 == 1:
             return "Odd"
