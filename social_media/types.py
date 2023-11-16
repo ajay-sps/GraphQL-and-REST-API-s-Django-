@@ -20,9 +20,10 @@ class EmployeeType(DjangoObjectType):
         salary = self.salary
         return salary > 50000
     
+                                                                                                       
 
 
-class TokenType(DjangoObjectType):
+class TokenType(DjangoObjectType):                    
     class Meta:
         model = Token
         fields =( 'key', 'user')
