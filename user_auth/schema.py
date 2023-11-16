@@ -14,11 +14,11 @@ class AuthMutation(graphene.ObjectType):
     password_reset  = mutations.PasswordReset.Field()
 
 
-class Query(UserQuery,MeQuery,graphene.ObjectType):
-    users = graphene.List(UserType)
+class Query(graphene.ObjectType):
+    usersListAuth = graphene.List(UserType)
 
     def resolve_users(self,info):
-        print("=-=-")
+        print("=-=-auth-==-=-=")
         return User.objects.all()
 
 class Mutation(AuthMutation, graphene.ObjectType):

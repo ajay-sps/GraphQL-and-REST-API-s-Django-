@@ -9,7 +9,7 @@ from graphql_auth.schema import MeQuery, UserQuery
 
 
 
-class Query(UserQuery,MeQuery,graphene.ObjectType):
+class Query(graphene.ObjectType):
     # Define your query fields here
     # users = graphene.List(UserType, filters=graphene.Argument(UserFilter))
     # user_profiles = graphene.List(UserProfileType, filters=graphene.Argument(UserProfileFilter))
