@@ -1,6 +1,6 @@
 import django_filters
 from social_media.models import *
-from django.contrib.auth.models import User
+from user_auth.models import User
 
 
 class UserFilter(django_filters.FilterSet):

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-d&u6#@$()w=^2gd(gnl*bo+trh=l90*xq85wlfm9mv01&5q12r
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = 'user_auth.User'
 
 # Application definition
 
@@ -41,8 +41,11 @@ INSTALLED_APPS = [
     "graphene_django",
     'employee',
     'social_media',
+    'user_auth',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
+    'graphql_auth',
 ]
 
 
@@ -137,5 +140,26 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 GRAPHENE = {
-    "SCHEMA": "cookbook.schema.schema"
+    "SCHEMA": "user_auth.schema.schema",
+        'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
 }
+
+
+GRAPHQL_JWT = {
+    "JWT_ALLOW_ANY_CLASSES": [
+        "graphql_auth.mutations.Register",
+        "graphql_auth.mutations.VerifyAccount",
+        "graphql_auth.mutations.ObtainJSONWebToken",
+    ],
+    "JWT_VERIFY_EXPIRATION": True,
+    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
+}
+
+AUTHENTICATION_BACKENDS = [
+    'graphql_auth.backends.GraphQLAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
