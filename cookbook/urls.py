@@ -21,10 +21,11 @@ from graphene_django.views import GraphQLView
 from employee.schema import schema
 from social_media.schema import schema as socialSchema
 from user_auth.schema import schema as authSchema
+from cookbook.schema import schema as ingeScema
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
+    path("graphql", csrf_exempt(GraphQLView.as_view(graphiql=True, schema=ingeScema))),
     path("auth", csrf_exempt(GraphQLView.as_view(graphiql=True,schema=authSchema))),
     path("graphql", csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema))),
     path("social", csrf_exempt(GraphQLView.as_view(graphiql=True, schema=socialSchema))),

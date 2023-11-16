@@ -58,7 +58,7 @@ class UserSignIn(Mutation):
 class CreateOrUpdateEmployeeMutation(SerializerMutation):
     employee = graphene.Field(EmployeeType)
 
-    class Meta:
+    class Meta:                           
         serializer_class = EmployeeSerializer
         model_operations = ['create', 'update']
 
